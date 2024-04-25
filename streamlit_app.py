@@ -38,7 +38,7 @@ def main():
 
         # Generate unique identifiers for each button
         next_button_id = uuid.uuid4().hex
-	end_button_id = uuid.uuid4().hex
+        end_button_id = uuid.uuid4().hex
 
         # Add buttons with unique identifiers
         # Create columns
@@ -53,7 +53,6 @@ def main():
             topic_button = st.button("Topic", key=topic_button_id)
         with col4:
             end_button = st.button("End", key=end_button_id)
-
 
         # Check which button is clicked
         if next_button:
@@ -81,7 +80,6 @@ def main():
             end_button = False
         elif end_button:
             break
-
             
 if __name__ == "__main__":
     main()
