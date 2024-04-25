@@ -32,23 +32,27 @@ def main():
 
     # Start practice session loop
     while True:
-        user_input = st.text_input("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:", "")
+        st.write("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
 
-        if user_input == 'end':
-            break
-        elif user_input == 'next':
+        next_button = st.button("Next")
+        difficulty_button = st.button("Difficulty")
+        topic_button = st.button("Topic")
+        end_button = st.button("End")
+
+        # Check which button is clicked
+        if next_button:
             current_question = get_next_question(current_question, 'random')
             st.write(current_question['Question'])
-        elif user_input == 'difficulty':
+        elif difficulty_button:
             preference = 'similar_bloom'
             current_question = get_next_question(current_question, preference)
             st.write(current_question['Question'])
-        elif user_input == 'topic':
+        elif topic_button:
             preference = 'similar_semantic'
             current_question = get_next_question(current_question, preference)
             st.write(current_question['Question'])
-        else:
-            st.write("Invalid input. Please try again.")
+        elif end_button:
+            break
             
 if __name__ == "__main__":
     main()
