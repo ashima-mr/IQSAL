@@ -24,20 +24,15 @@ def get_next_question(current_question, preference):
 def main():
     st.title("Exam Question Practice Session")
     st.write("Welcome to the Exam Question Practice Session!")
+    st.write("Here's your first question:")
 
     # Get a random question initially
     current_question = get_random_question()
     st.write(current_question['Question'])
 
-    # Initialize a counter for generating unique keys
-    key_counter = 0
-
     # Start practice session loop
     while True:
-        user_input = st.text_input(f"Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:", key=f"input_{key_counter}")
-
-        # Debugging: print user_input to see what value it contains
-        st.write(f"DEBUG: User input: {user_input}")
+        user_input = st.text_input("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:", "", key="unique_key")
 
         if user_input == 'end':
             break
@@ -54,9 +49,6 @@ def main():
             st.write(current_question['Question'])
         else:
             st.write("Invalid input. Please try again.")
-
-        # Increment the key counter for the next iteration
-        key_counter += 1
 
 if __name__ == "__main__":
     main()
