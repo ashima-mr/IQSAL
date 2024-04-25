@@ -38,6 +38,8 @@ def main():
 
         # Generate unique identifiers for each button
         next_button_id = uuid.uuid4().hex
+        difficulty_button_id = uuid.uuid4().hex
+        topic_button_id = uuid.uuid4().hex
         end_button_id = uuid.uuid4().hex
 
         # Add buttons with unique identifiers
