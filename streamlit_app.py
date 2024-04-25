@@ -38,8 +38,7 @@ def main():
 
         # Generate unique identifiers for each button
         next_button_id = uuid.uuid4().hex
-	@@ -45,10 +45,19 @@ def main():
-        end_button_id = uuid.uuid4().hex
+	end_button_id = uuid.uuid4().hex
 
         # Add buttons with unique identifiers
         # Create columns
