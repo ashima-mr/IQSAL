@@ -25,16 +25,19 @@ def get_next_question(current_question, preference):
 def main():
     st.title("Exam Question Practice Session")
     st.write("Welcome to the Exam Question Practice Session!")
-
-    # Initialize a placeholder for displaying the question and buttons
-    question_placeholder = st.empty()
+    st.write("Here's your first question:")
 
     # Get a random question initially
     current_question = get_random_question()
-    question_placeholder.write(current_question['Question'])
+    st.write(current_question['Question'])
+
+    # Initialize a counter for generating unique identifiers
+    button_id_counter = 0
 
     # Start practice session loop
     while True:
+        st.write("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
+
         # Generate unique identifiers for each button
         next_button_id = uuid.uuid4().hex
         difficulty_button_id = uuid.uuid4().hex
@@ -50,18 +53,29 @@ def main():
         # Check which button is clicked
         if next_button:
             current_question = get_next_question(current_question, 'random')
-            question_placeholder.write(current_question['Question'])
+            st.write(current_question['Question'])
+            # Clear other button states
+            difficulty_button = False
+            topic_button = False
+            end_button = False
         elif difficulty_button:
             preference = 'similar_bloom'
             current_question = get_next_question(current_question, preference)
-            question_placeholder.write(current_question['Question'])
+            st.write(current_question['Question'])
+            # Clear other button states
+            next_button = False
+            topic_button = False
+            end_button = False
         elif topic_button:
             preference = 'similar_semantic'
             current_question = get_next_question(current_question, preference)
-            question_placeholder.write(current_question['Question'])
+            st.write(current_question['Question'])
+            # Clear other button states
+            next_button = False
+            difficulty_button = False
+            end_button = False
         elif end_button:
             break
             
 if __name__ == "__main__":
     main()
-
