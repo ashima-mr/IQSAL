@@ -31,18 +31,12 @@ def main():
     current_question = get_random_question()
     st.write(current_question['Question'])
 
-    # Initialize a counter for generating unique identifiers
-    button_id_counter = 0
+    # Initialize session state to persist button states
+    session_state = st.session_state
 
     # Start practice session loop
     while True:
         st.write("Click 'random' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
-
-        # Generate unique identifiers for each button
-        next_button_id = uuid.uuid4().hex
-        difficulty_button_id = uuid.uuid4().hex
-        topic_button_id = uuid.uuid4().hex
-        end_button_id = uuid.uuid4().hex
 
         # Add buttons with unique identifiers
         # Create columns
@@ -50,41 +44,29 @@ def main():
         
         # Place buttons in columns
         with col1:
-            next_button = st.button("Random", key=next_button_id)
+            next_button = st.button("Random", key="next_button")
         with col2:
-            difficulty_button = st.button("Difficulty", key=difficulty_button_id)
+            difficulty_button = st.button("Difficulty", key="difficulty_button")
         with col3:
-            topic_button = st.button("Topic", key=topic_button_id)
+            topic_button = st.button("Topic", key="topic_button")
         with col4:
-            end_button = st.button("End", key=end_button_id)
-
+            end_button = st.button("End", key="end_button")
 
         # Check which button is clicked
-        if next_button:
+        if session_state.next_button:
             current_question = get_next_question(current_question, 'random')
             st.write(current_question['Question'])
-            # Clear other button states
-            difficulty_button = False
-            topic_button = False
-            end_button = False
-        elif difficulty_button:
+        elif session_state.difficulty_button:
             preference = 'similar_bloom'
             current_question = get_next_question(current_question, preference)
             st.write(current_question['Question'])
-            # Clear other button states
-            next_button = False
-            topic_button = False
-            end_button = False
-        elif topic_button:
+        elif session_state.topic_button:
             preference = 'similar_semantic'
             current_question = get_next_question(current_question, preference)
             st.write(current_question['Question'])
-            # Clear other button states
-            next_button = False
-            difficulty_button = False
-            end_button = False
-        elif end_button:
+        elif session_state.end_button:
             break
+
             
 if __name__ == "__main__":
     main()
