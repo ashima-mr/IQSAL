@@ -36,6 +36,9 @@ def main():
     while True:
         user_input = st.text_input(f"Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:", key=f"input_{key_counter}")
 
+        # Debugging: print user_input to see what value it contains
+        st.write(f"DEBUG: User input: {user_input}")
+
         if user_input == 'end':
             break
         elif user_input == 'next':
