@@ -1,2 +1,1 @@
-# IQSAL
-Intelligent Question Suggestion System for Adaptive Learning 
+# Intelligent Question Suggestion System for Adaptive Learning (IQSAL)
