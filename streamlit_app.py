@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import uuid  # Import UUID module for generating unique identifiers
 
 url = 'https://raw.githubusercontent.com/ashima-mr/IQSAL/main/IQSAL.xlsx'
 df = pd.read_excel(url, index_col=0)
@@ -30,14 +31,24 @@ def main():
     current_question = get_random_question()
     st.write(current_question['Question'])
 
+    # Initialize a counter for generating unique identifiers
+    button_id_counter = 0
+
     # Start practice session loop
     while True:
         st.write("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
 
-        next_button = st.button("Next")
-        difficulty_button = st.button("Difficulty")
-        topic_button = st.button("Topic")
-        end_button = st.button("End")
+        # Generate unique identifiers for each button
+        next_button_id = uuid.uuid4().hex
+        difficulty_button_id = uuid.uuid4().hex
+        topic_button_id = uuid.uuid4().hex
+        end_button_id = uuid.uuid4().hex
+
+        # Add buttons with unique identifiers
+        next_button = st.button("Next", key=next_button_id)
+        difficulty_button = st.button("Difficulty", key=difficulty_button_id)
+        topic_button = st.button("Topic", key=topic_button_id)
+        end_button = st.button("End", key=end_button_id)
 
         # Check which button is clicked
         if next_button:
@@ -56,4 +67,3 @@ def main():
             
 if __name__ == "__main__":
     main()
-
