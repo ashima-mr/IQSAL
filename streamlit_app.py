@@ -36,7 +36,7 @@ def main():
 
     # Start practice session loop
     while True:
-        st.write("Enter 'next' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
+        st.write("Click 'random' for another random question, 'difficulty' for questions of similar difficulty, 'topic' for more questions on a similar topic, or 'end' to end practice session:")
 
         # Generate unique identifiers for each button
         next_button_id = uuid.uuid4().hex
@@ -45,10 +45,19 @@ def main():
         end_button_id = uuid.uuid4().hex
 
         # Add buttons with unique identifiers
-        next_button = st.button("Next", key=next_button_id)
-        difficulty_button = st.button("Difficulty", key=difficulty_button_id)
-        topic_button = st.button("Topic", key=topic_button_id)
-        end_button = st.button("End", key=end_button_id)
+        # Create columns
+        col1, col2, col3, col4 = st.columns(4)
+        
+        # Place buttons in columns
+        with col1:
+            next_button = st.button("Random", key=next_button_id)
+        with col2:
+            difficulty_button = st.button("Difficulty", key=difficulty_button_id)
+        with col3:
+            topic_button = st.button("Topic", key=topic_button_id)
+        with col4:
+            end_button = st.button("End", key=end_button_id)
+
 
         # Check which button is clicked
         if next_button:
