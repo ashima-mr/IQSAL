@@ -5,6 +5,8 @@ import uuid  # Import UUID module for generating unique identifiers
 url = 'https://raw.githubusercontent.com/ashima-mr/IQSAL/main/IQSAL.xlsx'
 df = pd.read_excel(url)
 
+model = SentenceTransformer('paraphrase-MiniLM-L12-v2')
+
 # Define a function to get a random question from the dataset
 def get_random_question():
     return df.sample(n=1).iloc[0]
