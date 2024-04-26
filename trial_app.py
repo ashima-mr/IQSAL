@@ -45,29 +45,44 @@ def main():
         st.session_state.current_question = get_random_question()
     st.write(st.session_state.current_question['Question'])
 
-    # Add buttons
-    col1, col2, col3, col4 = st.columns(4)
-
     # Initialize button states in session state
     if 'button_states' not in st.session_state:
        st.session_state.button_states = {'random': False, 'difficulty': False, 'topic': False, 'end': False}
 
+    # Add buttons
+    col1, col2, col3, col4 = st.columns(4)
+    
     with col1:
-        if st.button("Random", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': True, 'difficulty': False, 'topic': False, 'end': False})):
-            st.session_state.current_question = get_next_question(st.session_state.current_question, 'random')
-            st.write(st.session_state.current_question['Question'])
+        if st.button("Random", key=uuid.uuid4().hex, on_click=lambda: handle_button_click('random')):
+            pass  # Button action is handled inside handle_button_click function
+    
     with col2:
-        if st.button("Difficulty", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': True, 'topic': False, 'end': False})):
-            st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_bloom')
-            st.write(st.session_state.current_question['Question'])
+        if st.button("Difficulty", key=uuid.uuid4().hex, on_click=lambda: handle_button_click('difficulty')):
+            pass  # Button action is handled inside handle_button_click function
+    
     with col3:
-        if st.button("Topic", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': True, 'end': False})):
-            st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_semantic')
-            st.write(st.session_state.current_question['Question'])
+        if st.button("Topic", key=uuid.uuid4().hex, on_click=lambda: handle_button_click('topic')):
+            pass  # Button action is handled inside handle_button_click function
+    
     with col4:
-        if st.button("End", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': False, 'end': True})):
+        if st.button("End", key=uuid.uuid4().hex, on_click=lambda: handle_button_click('end')):
+            pass  # Button action is handled inside handle_button_click function
+    
+    # Function to handle button click
+    def handle_button_click(button_type):
+        print(f"Button '{button_type}' clicked")
+        # Update session state based on button type
+        if button_type == 'random':
+            st.session_state.current_question = get_next_question(st.session_state.current_question, 'random')
+        elif button_type == 'difficulty':
+            st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_bloom')
+        elif button_type == 'topic':
+            st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_semantic')
+        elif button_type == 'end':
             st.write("Practice session ended.")
-            return
+            # Update session state
+            st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': False, 'end': True})
+
 
 if __name__ == "__main__":
     main()
