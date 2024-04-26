@@ -54,8 +54,5 @@ def main():
             st.write("Practice session ended.")
             return
 
-    # Display the current question
-    st.write(st.session_state.current_question['Question'])
-
 if __name__ == "__main__":
     main()
