@@ -43,12 +43,15 @@ def main():
     with col1:
         if st.button("Random", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': True, 'difficulty': False, 'topic': False, 'end': False})):
             st.session_state.current_question = get_next_question(st.session_state.current_question, 'random')
+            st.write(st.session_state.current_question['Question'])
     with col2:
         if st.button("Difficulty", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': True, 'topic': False, 'end': False})):
             st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_bloom')
+            st.write(st.session_state.current_question['Question'])
     with col3:
         if st.button("Topic", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': True, 'end': False})):
             st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_semantic')
+            st.write(st.session_state.current_question['Question'])
     with col4:
         if st.button("End", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': False, 'end': True})):
             st.write("Practice session ended.")
