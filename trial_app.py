@@ -3,11 +3,24 @@ import pandas as pd
 import uuid  # Import UUID module for generating unique identifiers
 
 url = 'https://raw.githubusercontent.com/ashima-mr/IQSAL/main/IQSAL.xlsx'
-df = pd.read_excel(url, index_col=0)
+df = pd.read_excel(url)
 
 # Define a function to get a random question from the dataset
 def get_random_question():
     return df.sample(n=1).iloc[0]
+
+def bloom_similarity(question1, question2):
+    return question1['BT'] == question2['BT']
+
+# Function to calculate similarity based on semantic embeddings (using cosine similarity)
+def semantic_similarity(question1, question2):
+    embedding1 = model.encode(question1['GQ2'], convert_to_tensor=True)
+    embedding2 = model.encode(question2['GQ2'], convert_to_tensor=True)
+
+    # Compute cosine similarity
+    cosine_similarity = util.pytorch_cos_sim(embedding1, embedding2)
+
+    return cosine_similarity.item()
 
 # Define a function to get the next question based on user input
 def get_next_question(current_question, preference):
@@ -30,15 +43,14 @@ def main():
     # Initialize session state if not already set
     if 'current_question' not in st.session_state:
         st.session_state.current_question = get_random_question()
-
     st.write(st.session_state.current_question['Question'])
-
-    # Initialize button states in session state
-    if 'button_states' not in st.session_state:
-        st.session_state.button_states = {'random': False, 'difficulty': False, 'topic': False, 'end': False}
 
     # Add buttons
     col1, col2, col3, col4 = st.columns(4)
+
+    # Initialize button states in session state
+    #if 'button_states' not in st.session_state:
+    #   st.session_state.button_states = {'random': False, 'difficulty': False, 'topic': False, 'end': False}
 
     with col1:
         if st.button("Random", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': True, 'difficulty': False, 'topic': False, 'end': False})):
