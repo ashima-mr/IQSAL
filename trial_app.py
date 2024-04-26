@@ -38,7 +38,7 @@ def get_next_question(current_question, preference):
 def main():
     st.title("Exam Question Practice Session")
     st.write("Welcome to the Exam Question Practice Session!")
-    st.write("Here's your first question:")
+    st.write("Here's your question:")
 
     # Initialize session state if not already set
     if 'current_question' not in st.session_state:
