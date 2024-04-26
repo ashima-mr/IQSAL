@@ -83,9 +83,7 @@ def main():
         elif button_type == 'topic':
             st.session_state.current_question = get_next_question(st.session_state.current_question, 'similar_semantic')
         elif button_type == 'end':
-            # Clear the page
-            st.empty()
-            st.write("Practice session ended.")
+            st.info("Practice session ended.")
             # Update session state
             st.session_state.button_states.update({'random': False, 'difficulty': False, 'topic': False, 'end': True})
 
