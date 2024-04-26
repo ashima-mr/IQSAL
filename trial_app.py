@@ -27,15 +27,16 @@ def semantic_similarity(question1, question2):
 
 # Define a function to get the next question based on user input
 def get_next_question(current_question, preference):
+    df_exclude_current = df.drop(current_question.name)
     if preference == 'random':
         return get_random_question()
     elif preference == 'similar_bloom':
         # Find the most similar question based on Bloom's taxonomy
-        similar_question = df.iloc[df.apply(lambda x: bloom_similarity(x, current_question), axis=1).idxmax()]
+        similar_question = df_exclude_current.iloc[df_exclude_current.apply(lambda x: bloom_similarity(x, current_question), axis=1).idxmax()]
         return similar_question
     elif preference == 'similar_semantic':
         # Find the most similar question based on semantic embeddings
-        similar_question = df.iloc[df.apply(lambda x: semantic_similarity(x, current_question), axis=1).idxmax()]
+        similar_question = df_exclude_current.iloc[df_exclude_current.apply(lambda x: semantic_similarity(x, current_question), axis=1).idxmax()]
         return similar_question
 
 def main():
