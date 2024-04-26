@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from sentence_transformers import SentenceTransformer, util
 import uuid  # Import UUID module for generating unique identifiers
 
 url = 'https://raw.githubusercontent.com/ashima-mr/IQSAL/main/IQSAL.xlsx'
