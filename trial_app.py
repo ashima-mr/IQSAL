@@ -49,8 +49,8 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
 
     # Initialize button states in session state
-    #if 'button_states' not in st.session_state:
-    #   st.session_state.button_states = {'random': False, 'difficulty': False, 'topic': False, 'end': False}
+    if 'button_states' not in st.session_state:
+       st.session_state.button_states = {'random': False, 'difficulty': False, 'topic': False, 'end': False}
 
     with col1:
         if st.button("Random", key=uuid.uuid4().hex, on_click=lambda: st.session_state.button_states.update({'random': True, 'difficulty': False, 'topic': False, 'end': False})):
